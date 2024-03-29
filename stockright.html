@@ -1,0 +1,90 @@
+<script>
+document.documentElement.style.overflow = 'hidden';
+    setTimeout(searchTextOnPage, 7200000);
+ /* 
+   if (typeof(stockdio_events) == "undefined") {
+      stockdio_events = true;
+      var stockdio_eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+      var stockdio_eventer = window[stockdio_eventMethod];
+      var stockdio_messageEvent = stockdio_eventMethod == "attachEvent" ? "onmessage" : "message";
+      stockdio_eventer(stockdio_messageEvent, function (e) {
+         if (typeof(e.data) != "undefined" && typeof(e.data.method) != "undefined") {
+            eval(e.data.method);
+         }
+      },false);
+   }
+
+  */
+function searchTextOnPage(searchText) {
+
+  var searchText = "License";
+    // Get all the text content on the page
+    var pageText = document.body.innerText || document.body.textContent;
+
+    // Convert both the search text and page text to lowercase for case-insensitive search
+    var searchTextLower = searchText.toLowerCase();
+    var pageTextLower = pageText.toLowerCase();
+
+    // Check if the search text is present on the page
+    if (pageTextLower.includes(searchTextLower)) {
+
+      document.getElementById("st_e0f6ace58ff24491ba476ea006343c9b").style.visibility = "hidden";
+     //alert('Text found on the page: ' + searchText);
+    } else {
+      document.getElementById("st_e0f6ace58ff24491ba476ea006343c9b").style.visibility = "visible";
+     
+      //  alert('Text not found on the page: ' + searchText);
+    }
+}
+  
+  // Function to check if it's a weekday (Monday to Friday)
+  function isWeekday() {
+    
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
+    return dayOfWeek >= 1 && dayOfWeek <= 5; // Monday to Friday
+  }
+
+  // Function to check if the current time is within the specified range (8:30 AM to 4:30 PM)
+  function isTimeInRange() {
+    const now = new Date();
+    const startHour = 8;
+    const endHour = 17;
+    const currentHour = now.getHours();
+    const currentMinute = now.getMinutes();
+    return isWeekday() && currentHour >= startHour && currentHour <= endHour && (currentHour !== endHour || currentMinute === 0);
+  }
+
+  // Function to reload the webpage
+  function reloadPage() {
+    
+    location.reload();
+
+
+
+//const now = new Date();
+ // document.getElementById('test').innerHTML = "Reload at "+now;
+    
+    
+  }
+
+  // Function to schedule automatic reloading every 2 minutes during weekdays and within the specified time range
+  function scheduleReload() {
+    
+    setInterval(function() {
+      if (isTimeInRange()) {
+        
+        
+        
+        reloadPage();
+        
+      }
+    }, 60 * 60 * 1000); // 60 minutes in milliseconds
+  }
+
+  // Call the function when the page is loaded
+//  window.onload = scheduleReload;
+  scheduleReload();
+</script>
+
+<iframe style=" transform: scale(0.94); position:absolute; top:2%;left:-7%; display:inline-block" id='st_e0f6ace58ff24491ba476ea006343c9b' frameBorder='0' scrolling='no' width='200%' src='https://api.stockdio.com/visualization/financial/charts/v1/Ticker?app-key=C325BA8DF99543CC851C35C2CB330ACE&stockExchange=TSX&symbols=RY;TD;IFC;ENB&scroll=No&palette=Brown-Sugar&layoutType=13&backgroundColor=00000000&onload=st_e0f6ace58ff24491ba476ea006343c9b'></iframe>
